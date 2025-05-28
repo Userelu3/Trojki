@@ -1,64 +1,31 @@
 ﻿using System;
 
-class Program
+Console.WriteLine("Podaj pierwszą liczbę: ");
+string liczba1 = Console.ReadLine();
+Console.WriteLine("Podaj drugą liczbę: ");
+string liczba2 = Console.ReadLine();
+Console.WriteLine("Podaj trzecią liczbę: ");
+string liczba3 = Console.ReadLine();
+
+if (int.TryParse(liczba1, out int a) &&
+   int.TryParse(liczba2, out int b) &&
+   int.TryParse(liczba3, out int c))
 {
-    static void Main(string[] args)
+    Console.WriteLine("podane liczby to: " + a + ", " + b + ", " + c);
+    int[] liczby = { a, b, c };
+    Array.Sort(liczby);
+    if (liczby[0] * liczby[0] + liczby[1] * liczby[1] == liczby[2] * liczby[2])
     {
-        try
-        {
-            Console.WriteLine("Podaj pierwszą liczbę:");
-            if (!int.TryParse(Console.ReadLine(), out int a))
-            {
-                throw new FormatException("Pierwsza liczba jest nieprawidłowa.");
-            }
-
-            Console.WriteLine("Podaj drugą liczbę:");
-            if (!int.TryParse(Console.ReadLine(), out int b))
-            {
-                throw new FormatException("Druga liczba jest nieprawidłowa.");
-            }
-
-            Console.WriteLine("Podaj trzecią liczbę:");
-            if (!int.TryParse(Console.ReadLine(), out int c))
-            {
-                throw new FormatException("Trzecia liczba jest nieprawidłowa.");
-            }
-
-            SortNumbers(ref a, ref b, ref c);
-
-            if (IsPythagoreanTriplet(a, b, c))
-            {
-                Console.WriteLine("Podane liczby tworzą trójkę pitagorejską.");
-            }
-            else
-            {
-                Console.WriteLine("Podane liczby nie tworzą trójki pitagorejskiej.");
-            }
-        }
-        catch (FormatException ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Wystąpił błąd: {ex.Message}");
-        }
-
-        Console.WriteLine("Naciśnij dowolny klawisz, aby zakończyć...");
+        Console.WriteLine("Podane liczby tworzą trójkę pitagorejską: " + liczby[0] + ", " + liczby[1] + ", " + liczby[2]);
         Console.ReadLine();
     }
-
-    static void SortNumbers(ref int a, ref int b, ref int c)
+    else
     {
-        int[] numbers = { a, b, c };
-        Array.Sort(numbers);
-        a = numbers[0];
-        b = numbers[1];
-        c = numbers[2];
+        Console.WriteLine("Podane liczby nie tworzą trójki pitagorejskiej.");
+        Console.ReadLine();
     }
-
-    static bool IsPythagoreanTriplet(int a, int b, int c)
-    {
-        return a * a + b * b == c * c;
-    }
+}
+else
+{
+    Console.WriteLine("Nieprawidłowy format");
 }
